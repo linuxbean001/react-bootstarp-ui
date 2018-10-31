@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Header from './component/Header';
-import Footer from './component/Footer';
-import MainPage from './component/MainPage';
+import RouterOutlet from './component/Router-outlet';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
-        <MainPage />
-        <Footer />
-
+        <RouterOutlet />
+      
       </div>
     );
   }
