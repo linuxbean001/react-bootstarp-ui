@@ -1,6 +1,32 @@
 import React, { Component } from 'react';
 import { Table} from 'react-bootstrap';
+import TestApi from '../services/TestApi';
+
+const api = new TestApi();
 class MainPage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataList: []
+    };
+
+  
+
+  }
+
+  componentDidMount() {
+    api.getData()
+    .then(res => {
+      console.log('xxxxxxx xxxxxxxxxxx xxxxxxxxxxx res from here is ', res);
+      console.log('xxxxxxx xxxxxxxxxxx xxxxxxxxxxx res from here is ', res.data.results);
+      this.setState({ dataList: res.data.results});
+
+      
+    }).catch(err => {
+      console.log('xxxxxxx xxxxxxxxxxx xxxxxxxxxxx err from here is ', err);
+    });
+  }
     render() {
         return (
             <div>
@@ -10,43 +36,27 @@ class MainPage extends Component {
               <Table responsive>
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
+                
+                    <th>AssignedItemsID</th>
+                    <th>AgentID</th>
+                    <th>ProductItemID</th>
+                    <th>itemAssignDate</th>
+                    <th>itemAssignNote</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
+                    {this.state.dataList.map((data, index) =>
+                      <tr key={index}>
+                   
+                        <td>{data.assignedItemsID}</td>
+                        <td>{data.agentID}</td>
+                        <td>{data.productitemID}</td>
+                        <td>{data.itemAssignDate}</td>
+                        <td>{data.itemAssignNote}</td>
+                   
                   </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                  </tr>
+                    )}
                 </tbody>
               </Table>
               </div>
